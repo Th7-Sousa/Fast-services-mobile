@@ -1,3 +1,3 @@
 # Code-Movie
 
-# Start: npx expo start
+Start: npx expo start
