@@ -11,6 +11,8 @@ export default function Navbar({ type }) {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigation()
 
+  const pop = 'teste'
+
   const handlePress = () => {
     setIsClicked(!isClicked);
     if (isClicked) {
@@ -41,12 +43,15 @@ export default function Navbar({ type }) {
 
       {type === 'detail' && (
         <View style={styles.cardSearch}>
-          <TouchableOpacity onPress={() => navigate.canGoBack() ? navigate.goBack() : null} >
+          <TouchableOpacity onPress={() => {
+            navigate.canGoBack() ? navigate.goBack() : null
+          }}
+          >
             <IconBack width={40} height={20} />
           </TouchableOpacity>
           <Text style={styles.textRegular}>Detalhes</Text>
           <TouchableOpacity>
-            <MaterialIcons name='bookmark' size={28} color={iconColor} />
+            <MaterialIcons onPress={() => handlePress()} name='bookmark' size={28} color={iconColor} />
           </TouchableOpacity>
         </View>
       )}

@@ -13,5 +13,10 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: white,
+  },
+
+  destaquesContainer: {
+    width: 'auto',
+    height: 250,
   }
 });
