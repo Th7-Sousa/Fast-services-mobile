@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-export default function LoadSpinner({ hasLoading = false }) {
+export default function LoadSpinner() {
 
   return (
     <View>
-
-      {hasLoading ?
-        <Spinner
-          visible={hasLoading}
-          textContent={'Carregando...'}
-          textStyle={{ color: '#FFF' }}
-        />
-        : null
-      }
-
+      <Spinner
+        textContent={'Carregando...'}
+        textStyle={{ color: '#FFF' }}
+      />
     </View>
   )
 }

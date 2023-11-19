@@ -9,14 +9,18 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: 32,
     paddingHorizontal: 20,
-    gap: 50,
+    gap: 60,
   },
+
   text: {
     color: white,
   },
 
-  destaquesContainer: {
-    width: 'auto',
-    height: 250,
-  }
+  scrollContainer: {
+    display: 'flex',
+    gap: 60,
+  },
+
+
+
 });
