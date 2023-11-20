@@ -21,8 +21,22 @@ export const styles = StyleSheet.create({
   title: {
     color: white,
     textAlign: 'left',
-    fontSize: 11,
+    fontSize: 12,
     opacity: 0.8,
+  },
+
+  smallContent: {
+    width: 122,
+    display: 'flex',
+    flexDirection: 'column',
+    paddingRight: 8,
+    borderRadius: 4,
+  },
+
+  smallImage: {
+    width: '100%',
+    height: 160,
+    borderRadius: 4,
   }
 
 });

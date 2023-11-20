@@ -1,18 +1,21 @@
-import { View, Text, Button, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { styles } from '../../styles/styles_global';
 import LoadSpinner from './../../components/LoadSpinner'
 import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
-//import YouTube from 'react-native-youtube';
+import { SimpleLineIcons } from '@expo/vector-icons';
 
 import NavbarHeader from './../../components/NavbarHeader'
 import CardMovie from '../../components/CardMovie';
 
 export default function Home() {
-  const [moviesTopRated, setMoviesTopRated] = useState([]);
-  const [movieVideo, setMovieVideo] = useState([])
-  const [movieDetail, setMovieDetail] = useState({})
+
   const [loading, setLoading] = useState(true);
+
+  const [moviesTopRated, setMoviesTopRated] = useState([]);
+  const [moviesRelease, setMoviesRelease] = useState([])
+  const [moviesPopular, setMoviesPopular] = useState([]);
+  const [moviesUpcoming, setMoviesUpComing] = useState([]);
 
   const options = {
     method: 'GET',
@@ -22,53 +25,159 @@ export default function Home() {
     }
   };
 
-
-
   useEffect(() => {
     fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
-      .then(response => response.json())
-      .then(response => setMoviesTopRated(response.results))
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(response => {
+        setMoviesTopRated(response.results);
+        setLoading(false);
+      })
       .catch(err => console.error(err));
-
-    fetch('https://api.themoviedb.org/3/movie/238/videos?language=en-US', options)
-      .then(response => response.json())
-      .then(response => setMovieVideo(response.results))
-      .catch(err => console.error(err));
-
   }, [options]);
 
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(response => {
+        setMoviesPopular(response.results);
+      })
+      .catch(err => console.error(err));
+  }, [options]);
 
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=2', options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(response => {
+        setMoviesRelease(response.results);
+      })
+      .catch(err => console.error(err));
+  }, [options]);
 
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', options)
+      .then(response => response.json())
+      .then(response => {
+        setMoviesUpComing(response.results);
+      })
+      .catch(err => console.error(err));
+  }, [options]);
 
   return (
     <View style={styles.container}>
       <NavbarHeader type='home' />
 
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      {
+        loading ? <LoadSpinner /> :
 
-        <View style={{ display: 'flex', gap: 5 }}>
-          <Text style={{ fontSize: 18, color: '#fff', fontWeight: 'bold' }} >Top filmes</Text>
-          <ScrollView horizontal={true} style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
-            {moviesTopRated.map((movie) => (
-              <Link
-                key={movie.id}
-                href={{
-                  pathname: "/detail",
-                  params: { id: movie.id },
-                }}
-              >
-                <CardMovie onClick={() => {
-                  alert('clicado')
-                }} pathImage={movie.poster_path} title={movie.title} />
-              </Link>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
 
-            ))}
+            <View style={{ display: 'flex', gap: 10 }}>
+              <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'medium' }} >Filmes em alta</Text>
+                <SimpleLineIcons name="fire" size={24} color="#FF8700" />
+              </View>
+              <ScrollView horizontal={true} style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
+                {moviesTopRated.map((movie) => (
+                  <Link
+                    key={movie.id}
+                    href={{
+                      pathname: "/detail",
+                      params: { id: movie.id },
+                    }}
+                  >
+                    <CardMovie onClick={() => {
+                      alert('clicado')
+                    }} pathImage={movie.poster_path} title={movie.title} />
+                  </Link>
+
+                ))}
+              </ScrollView>
+            </View>
+
+
+            <View style={{ display: 'flex', gap: 10 }}>
+              <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'medium' }}>Lançamentos</Text>
+              <ScrollView horizontal={true} style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
+                {moviesPopular.map((movie) => (
+                  <Link
+                    key={movie.id}
+                    href={{
+                      pathname: "/detail",
+                      params: { id: movie.id },
+                    }}
+                  >
+                    <CardMovie size="small" onClick={() => {
+                      alert('clicado')
+                    }} pathImage={movie.poster_path} title={movie.title} />
+                  </Link>
+
+                ))}
+              </ScrollView>
+            </View>
+
+
+            <View style={{ display: 'flex', gap: 10 }}>
+              <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'medium' }}>Populares</Text>
+              <ScrollView horizontal={true} style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
+                {moviesRelease.map((movie) => (
+                  <Link
+                    key={movie.id}
+                    href={{
+                      pathname: "/detail",
+                      params: { id: movie.id },
+                    }}
+                  >
+                    <CardMovie size="small" onClick={() => {
+                      alert('clicado')
+                    }} pathImage={movie.poster_path} title={movie.title} />
+                  </Link>
+
+                ))}
+              </ScrollView>
+            </View>
+
+
+
+            <View style={{ display: 'flex', gap: 10 }}>
+              <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'medium' }}>Em breve</Text>
+              <ScrollView horizontal={true} style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
+                {moviesUpcoming.map((movie) => (
+                  <Link
+                    key={movie.id}
+                    href={{
+                      pathname: "/detail",
+                      params: { id: movie.id },
+                    }}
+                  >
+                    <CardMovie size="small" onClick={() => {
+                      alert('clicado')
+                    }} pathImage={movie.poster_path} title={movie.title} />
+                  </Link>
+
+                ))}
+              </ScrollView>
+            </View>
+
+
           </ScrollView>
 
-        </View>
+      }
 
-
-      </ScrollView>
     </View>
   );
 }

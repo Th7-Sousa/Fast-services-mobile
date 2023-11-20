@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: 32,
     paddingHorizontal: 20,
-    gap: 60,
+    gap: 40,
   },
 
   text: {
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
 
   scrollContainer: {
     display: 'flex',
-    gap: 60,
+    gap: 40,
   },
 
 
