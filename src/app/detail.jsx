@@ -27,7 +27,7 @@ export default function Detail() {
       .then(response => response.json())
       .then(response => setMovieDetail(response))
       .catch(err => console.error(err));
-  }, [id, options]);
+  }, [id]);
 
 
   useEffect(() => {

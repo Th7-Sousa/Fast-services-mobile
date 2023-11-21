@@ -38,7 +38,7 @@ export default function Home() {
         setLoading(false);
       })
       .catch(err => console.error(err));
-  }, [options]);
+  }, []);
 
   useEffect(() => {
     fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
@@ -52,7 +52,7 @@ export default function Home() {
         setMoviesPopular(response.results);
       })
       .catch(err => console.error(err));
-  }, [options]);
+  }, []);
 
   useEffect(() => {
     fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=2', options)
@@ -66,7 +66,7 @@ export default function Home() {
         setMoviesRelease(response.results);
       })
       .catch(err => console.error(err));
-  }, [options]);
+  }, []);
 
   useEffect(() => {
     fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', options)
@@ -75,7 +75,7 @@ export default function Home() {
         setMoviesUpComing(response.results);
       })
       .catch(err => console.error(err));
-  }, [options]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -84,7 +84,7 @@ export default function Home() {
       {
         loading ? <LoadSpinner /> :
 
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
 
             <View style={{ display: 'flex', gap: 10 }}>
               <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 6 }}>

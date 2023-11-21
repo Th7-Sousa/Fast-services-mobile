@@ -1,17 +1,38 @@
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styles } from '../styles/navbarHeader'
 import IconBack from './../../assets/icon-back.svg'
 import { MaterialIcons } from '@expo/vector-icons';
 import { gray1, orange } from './../styles/colorPalette'
-import { Link, useNavigation } from 'expo-router';
+import { useNavigation } from 'expo-router';
 
 export default function Navbar({ type }) {
 
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZmVhNmI0NGU0MjEwZjljYjczNzdlZTM5MTE2OTVlOSIsInN1YiI6IjY1MWRlYjkzOGMyMmMwMDBjOTA4YjliYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.P7ppdL_-iHK0G7Y16XP_Bg_z6R-IYL_8YFX6qCTAk7Q'
+    }
+  };
+
   const [isClicked, setIsClicked] = useState(false);
+  const [userInfo, setUserInfo] = useState({})
   const navigate = useNavigation()
 
-  const pop = 'teste'
+
+
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/account/20726886', options)
+      .then(response => response.json())
+      .then(response => {
+        setUserInfo(response)
+        console.log(response)
+      })
+      .catch(err => console.error(err));
+  }, []);
+
+  const limitedUsername = userInfo.username ? userInfo.username.substr(0, 6) : '';
 
   const handlePress = () => {
     setIsClicked(!isClicked);
@@ -28,7 +49,8 @@ export default function Navbar({ type }) {
     <View style={styles.container}>
       {type === 'home' &&
         <View style={styles.cardHome} >
-          <Text style={styles.textBold}>O que você quer assistir?</Text>
+          <Text style={styles.textBold}>O que você quer assistir, {userInfo.name || limitedUsername} ?</Text>
+
         </View>
       }
 
