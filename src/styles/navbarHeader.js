@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
 
   textBold: {
     color: white,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 

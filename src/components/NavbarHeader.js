@@ -28,7 +28,7 @@ export default function Navbar({ type }) {
     <View style={styles.container}>
       {type === 'home' &&
         <View style={styles.cardHome} >
-          <Text style={styles.textBold}>Quer assistir o que hoje?</Text>
+          <Text style={styles.textBold}>O que você quer assistir?</Text>
         </View>
       }
 
