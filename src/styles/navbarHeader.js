@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     display: 'flex',
     justifyContent: 'center',
-    width: '100%',
+    width: '94%',
   },
 
   textBold: {

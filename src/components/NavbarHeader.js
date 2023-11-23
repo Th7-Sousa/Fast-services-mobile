@@ -2,8 +2,6 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { useState, useEffect } from 'react';
 import { styles } from '../styles/navbarHeader'
 import IconBack from './../../assets/icon-back.svg'
-import { MaterialIcons } from '@expo/vector-icons';
-import { gray1, orange } from './../styles/colorPalette'
 import { useNavigation } from 'expo-router';
 
 export default function Navbar({ type }) {
@@ -16,10 +14,8 @@ export default function Navbar({ type }) {
     }
   };
 
-  const [isClicked, setIsClicked] = useState(false);
   const [userInfo, setUserInfo] = useState({})
   const navigate = useNavigation()
-
 
 
   useEffect(() => {
@@ -27,23 +23,12 @@ export default function Navbar({ type }) {
       .then(response => response.json())
       .then(response => {
         setUserInfo(response)
-        console.log(response)
       })
       .catch(err => console.error(err));
   }, []);
 
   const limitedUsername = userInfo.username ? userInfo.username.substr(0, 6) : '';
 
-  const handlePress = () => {
-    setIsClicked(!isClicked);
-    if (isClicked) {
-      Alert.alert('Removido de favoritos');
-    } else {
-      Alert.alert('Adicionado aos favoritos');
-    }
-  };
-
-  const iconColor = isClicked ? orange : gray1;
 
   return (
     <View style={styles.container}>
@@ -72,9 +57,6 @@ export default function Navbar({ type }) {
             <IconBack width={40} height={20} />
           </TouchableOpacity>
           <Text style={styles.textRegular}>Detalhes</Text>
-          <TouchableOpacity>
-            <MaterialIcons onPress={() => handlePress()} name='bookmark' size={28} color={iconColor} />
-          </TouchableOpacity>
         </View>
       )}
 
