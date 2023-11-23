@@ -100,9 +100,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
@@ -121,9 +119,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie size="small" onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie size="small" pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
@@ -142,9 +138,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie size="small" onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie size="small" pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
@@ -164,9 +158,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie size="small" onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}

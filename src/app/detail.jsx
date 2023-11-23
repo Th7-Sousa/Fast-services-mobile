@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
 import { styles } from '../styles/styles_global';
 import NavbarHeader from '../components/NavbarHeader'
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { gray1, orange } from './../styles/colorPalette'
+import { gray1, orange, blue } from './../styles/colorPalette'
 import { MaterialIcons } from '@expo/vector-icons';
 import { optionsGet } from "./utils/optionsGet";
 
@@ -60,7 +60,7 @@ export default function Detail() {
       } else if (newState === false) {
         Alert.alert('Removido dos favoritos');
       }
-      // Fazer a chamada fetch aqui
+
       fetch('https://api.themoviedb.org/3/account/20726886/favorite', {
         ...optionsFavorite,
         body: JSON.stringify({ media_type: 'movie', media_id: id, favorite: newState })
@@ -96,27 +96,38 @@ export default function Detail() {
               }}
             />
 
-            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20 }} key={movieDetail.title}>{movieDetail.title}</Text>
+            <Text style={{ maxWidth: 160, color: '#fff', fontWeight: 'bold', fontSize: 20 }} >{movieDetail.title}</Text>
+
+            <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 12 }}>
+              <Link
+                href={{
+                  pathname: "/reviews",
+                  params: { id: id },
+                }}
+                style={{ color: blue, fontSize: 14 }} >Ver comentários
+              </Link>
+              <MaterialIcons name='arrow-right-alt' size={24} color={blue} />
+            </View>
 
           </View>
 
-          <View style={{ maxWidth: 195 }}>
+          <View style={{ maxWidth: 195, maxHeight: 260 }}>
             <View style={{ display: 'flex', flexDirection: 'column' }}>
-              <Text style={{ color: '#fff', fontSize: 11 }}>{movieDetail.overview}</Text>
+              <Text ellipsizeMode='tail' numberOfLines={12} style={{ color: '#fff', fontSize: 11 }}>{movieDetail.overview}</Text>
               <MaterialIcons style={{ marginTop: -8, marginLeft: -6 }} name='minimize' size={28} color={gray1} />
             </View>
 
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{ color: '#fff', fontSize: 14, paddingTop: 8, fontWeight: 'bold' }}>Ano: </Text>
-              <Text style={{ color: '#fff', fontSize: 14, paddingTop: 8, fontWeight: 'bold' }}>{getYearFromDate(movieDetail.release_date)}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 2 }}>
+              <Text style={{ color: '#fff', fontSize: 14, fontWeight: 'bold' }}>Ano: </Text>
+              <Text style={{ color: '#fff', fontSize: 14, fontWeight: 'bold' }}>{getYearFromDate(movieDetail.release_date)}</Text>
 
             </View>
 
-            <MaterialIcons style={{ marginTop: -8, marginLeft: -6 }} name='minimize' size={28} color={gray1} />
+            <MaterialIcons style={{ marginTop: -12, marginLeft: -6 }} name='minimize' size={28} color={gray1} />
 
-            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 4, marginLeft: -2 }}>
+            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 4, marginLeft: -2, paddingTop: 4 }}>
               <MaterialIcons name='star' size={24} color={orange} />
-              <Text style={{ color: orange, fontWeight: 'bold', fontSize: 14, paddingTop: 16 }} >{movieDetail.vote_average.toFixed(1)}</Text>
+              <Text style={{ color: orange, fontWeight: 'bold', fontSize: 14 }} >{movieDetail.vote_average.toFixed(1)}</Text>
             </View>
           </View>
 
@@ -144,9 +155,11 @@ export default function Detail() {
             </TouchableOpacity>
             {showVideo && (
               <WebView
-                source={{ uri: `https://www.youtube.com/embed/${videoKey}` }}
-                style={{ marginTop: 20, width: 350, maxHeight: 250 }}
+                source={{ uri: `https://www.youtube.com/embed/${videoKey}?fs=1&playsinline=0` }}
+                style={{ marginTop: 20, width: 380, maxHeight: 256 }}
+                allowsFullscreenVideo={true}
               />
+
             )}
           </View>
         )

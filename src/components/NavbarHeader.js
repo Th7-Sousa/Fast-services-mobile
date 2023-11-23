@@ -44,7 +44,7 @@ export default function Navbar({ type }) {
           <TouchableOpacity onPress={() => navigate.canGoBack() ? navigate.goBack() : null}>
             <IconBack width={40} height={20} />
           </TouchableOpacity>
-          <Text style={styles.textRegular}>Search</Text>
+          <Text style={styles.textRegular}>Pesquisar</Text>
         </View>
       }
 
