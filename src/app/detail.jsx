@@ -27,9 +27,21 @@ export default function Detail() {
 
   const [isClicked, setIsClicked] = useState(false);
 
+  const [movieInfo, setMovieInfo] = useState(null)
   const [movieDetail, setMovieDetail] = useState(null)
   const [videoKey, setVideoKey] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/account/20726886/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`, optionsGet)
+      .then(response => response.json())
+      .then(response => {
+        setMovieInfo(response.results);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, optionsGet)
@@ -47,7 +59,6 @@ export default function Detail() {
       })
       .catch(err => console.error(err));
   }, [id]);
-
 
   //const iconColor = isClicked ? orange : gray1;
 
@@ -82,7 +93,12 @@ export default function Detail() {
     <View style={styles.container}>
       <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <NavbarHeader type='detail' />
-        <MaterialIcons onPress={() => handlePress()} name='bookmark' size={28} color={gray1} />
+
+        {movieDetail && movieInfo && movieInfo.some(movie => movie.id === movieDetail.id) ?
+          <MaterialIcons onPress={() => handlePress()} name='bookmark' size={28} color={orange} />
+          :
+          <MaterialIcons onPress={() => handlePress()} name='bookmark' size={28} color={gray1} />
+        }
       </View>
 
       {movieDetail &&

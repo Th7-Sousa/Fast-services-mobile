@@ -73,9 +73,3 @@ export default function Navbar({ type }) {
   )
 }
 
-
-//CHAMADAS
-// <NavbarHeader type='home' />
-// <NavbarHeader type='search' />
-// <NavbarHeader type='detail' />
-// <NavbarHeader type='list' />
