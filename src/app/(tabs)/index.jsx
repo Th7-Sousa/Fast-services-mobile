@@ -7,6 +7,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 
 import NavbarHeader from './../../components/NavbarHeader'
 import CardMovie from '../../components/CardMovie';
+import { optionsGet } from '../utils/optionsGet';
 
 export default function Home() {
 
@@ -17,16 +18,9 @@ export default function Home() {
   const [moviesPopular, setMoviesPopular] = useState([]);
   const [moviesUpcoming, setMoviesUpComing] = useState([]);
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZmVhNmI0NGU0MjEwZjljYjczNzdlZTM5MTE2OTVlOSIsInN1YiI6IjY1MWRlYjkzOGMyMmMwMDBjOTA4YjliYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.P7ppdL_-iHK0G7Y16XP_Bg_z6R-IYL_8YFX6qCTAk7Q'
-    }
-  };
 
   useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+    fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', optionsGet)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -41,7 +35,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', optionsGet)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -55,7 +49,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=2', options)
+    fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=2', optionsGet)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -69,7 +63,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', options)
+    fetch('https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1', optionsGet)
       .then(response => response.json())
       .then(response => {
         setMoviesUpComing(response.results);
@@ -100,9 +94,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
@@ -121,9 +113,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie size="small" onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie size="small" pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
@@ -142,9 +132,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie size="small" onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie size="small" pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
@@ -164,9 +152,7 @@ export default function Home() {
                       params: { id: movie.id },
                     }}
                   >
-                    <CardMovie size="small" onClick={() => {
-                      alert('clicado')
-                    }} pathImage={movie.poster_path} title={movie.title} />
+                    <CardMovie size='small' pathImage={movie.poster_path} title={movie.title} />
                   </Link>
 
                 ))}
