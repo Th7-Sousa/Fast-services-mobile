@@ -34,7 +34,7 @@ export default function Navbar({ type }) {
     <View style={styles.container}>
       {type === 'home' &&
         <View style={styles.cardHome} >
-          <Text style={styles.textBold}>O que você quer assistir, {userInfo.name || limitedUsername} ?</Text>
+          <Text style={styles.textBold}>Nav home</Text>
 
         </View>
       }
